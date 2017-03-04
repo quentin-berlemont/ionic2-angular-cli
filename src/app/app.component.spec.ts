@@ -1,9 +1,10 @@
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
-import { IonicModule } from 'ionic-angular';
+import { IonicModule, Nav } from 'ionic-angular';
 
 import { AppComponent } from './app.component';
 import { Page1Component } from './page1/page1.component';
 import { Page2Component } from './page2/page2.component';
+import { NavMock } from '../mocks';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
@@ -14,8 +15,13 @@ describe('AppComponent', () => {
       declarations: [AppComponent],
       imports: [
           IonicModule.forRoot(AppComponent)
-      ],
-    }).compileComponents();
+      ]
+    })
+    .overrideComponent(AppComponent, {
+      add: [NavMock],
+      remove: [Nav]
+    })
+    .compileComponents();
   }));
 
   beforeEach(() => {
@@ -32,14 +38,17 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it('root page should be Page One by default', () => {
-      expect(app['rootPage']).toBe(Page1Component);
+  it('initialises with a root page', () => {
+    expect(app['rootPage']).toEqual(Page1Component);
   });
 
-  it('displays 2 pages in the menu', () => {
-      expect(app['pages']).toEqual([
-        { title: 'Page One', component: Page1Component },
-        { title: 'Page Two', component: Page2Component }
-      ]);
+  it('initialises with two possible pages', () => {
+    expect(app['pages'].length).toEqual(2);
+  });
+
+  it('opens a page', () => {
+    spyOn(app['nav'], 'setRoot');
+    app.openPage(app['pages'][1]);
+    expect(app['nav'].setRoot).toHaveBeenCalledWith(Page2Component);
   });
 });
