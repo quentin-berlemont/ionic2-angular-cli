@@ -3,16 +3,16 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
 @Component({
-  selector: 'page-page2',
-  templateUrl: './page2.html',
-  styleUrls: ['./page2.scss']
+  selector: 'app-page2',
+  templateUrl: './page2.component.html',
+  styleUrls: ['./page2.component.scss']
 })
-export class Page2 {
+export class Page2Component {
   selectedItem: any;
   icons: string[];
   items: Array<{title: string, note: string, icon: string}>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private navCtrl: NavController, private navParams: NavParams) {
     // If we navigated to this page, we will have an item available as a nav param
     this.selectedItem = navParams.get('item');
 
@@ -32,7 +32,7 @@ export class Page2 {
 
   itemTapped(event, item) {
     // That's right, we're pushing to ourselves!
-    this.navCtrl.push(Page2, {
+    this.navCtrl.push(Page2Component, {
       item: item
     });
   }

@@ -1,8 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { Nav } from 'ionic-angular';
 
-import { Page1 } from '../pages/page1/page1';
-import { Page2 } from '../pages/page2/page2';
+import { Page1Component } from './page1/page1.component';
+import { Page2Component } from './page2/page2.component';
 
 @Component({
   selector: 'app-root',
@@ -12,13 +12,13 @@ import { Page2 } from '../pages/page2/page2';
 export class AppComponent {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = Page1;
+  rootPage: any = Page1Component;
   pages: Array<{title: string, component: any}>;
 
   constructor() {
     this.pages = [
-      { title: 'Page One', component: Page1 },
-      { title: 'Page Two', component: Page2 }
+      { title: 'Page One', component: Page1Component },
+      { title: 'Page Two', component: Page2Component }
     ];
   }
 
