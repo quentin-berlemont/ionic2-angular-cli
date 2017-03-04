@@ -1,32 +1,45 @@
-import { TestBed, async } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { IonicModule } from 'ionic-angular';
 
 import { AppComponent } from './app.component';
+import { Page1Component } from './page1/page1.component';
+import { Page2Component } from './page2/page2.component';
 
 describe('AppComponent', () => {
+  let fixture: ComponentFixture<AppComponent>;
+  let app: AppComponent;
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
+      declarations: [AppComponent],
+      imports: [
+          IonicModule.forRoot(AppComponent)
       ],
     }).compileComponents();
   }));
 
-  it('should create the app', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
+  beforeEach(() => {
+    fixture = TestBed.createComponent(AppComponent);
+    app = fixture.debugElement.componentInstance;
+  });
+
+  afterEach(() => {
+    fixture.destroy();
+    app = null;
+  });
+
+  it('is created', () => {
     expect(app).toBeTruthy();
-  }));
+  });
 
-  it(`should have as title 'app works!'`, async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('app works!');
-  }));
+  it('root page should be Page One by default', () => {
+      expect(app['rootPage']).toBe(Page1Component);
+  });
 
-  it('should render title in a h1 tag', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('app works!');
-  }));
+  it('displays 2 pages in the menu', () => {
+      expect(app['pages']).toEqual([
+        { title: 'Page One', component: Page1Component },
+        { title: 'Page Two', component: Page2Component }
+      ]);
+  });
 });
