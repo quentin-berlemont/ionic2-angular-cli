@@ -4,7 +4,8 @@ import { NavController } from 'ionic-angular';
 
 @Component({
   selector: 'page-page1',
-  templateUrl: './page1.html'
+  templateUrl: './page1.html',
+  styleUrls: ['./page1.scss']
 })
 export class Page1 {
 
