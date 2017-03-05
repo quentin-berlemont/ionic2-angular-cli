@@ -1,10 +1,9 @@
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
-import { IonicModule, Nav } from 'ionic-angular';
+import { IonicModule } from 'ionic-angular';
 
 import { AppComponent } from './app.component';
 import { Page1Component } from './page1/page1.component';
 import { Page2Component } from './page2/page2.component';
-import { NavMock } from '../mocks';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
@@ -17,17 +16,12 @@ describe('AppComponent', () => {
           IonicModule.forRoot(AppComponent)
       ]
     })
-    .overrideComponent(AppComponent, {
-      add: [NavMock],
-      remove: [Nav]
-    })
-    .compileComponents();
+    .compileComponents().then(() => {
+      fixture = TestBed.createComponent(AppComponent);
+      app = fixture.debugElement.componentInstance;
+      // fixture.detectChanges();
+    });
   }));
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(AppComponent);
-    app = fixture.debugElement.componentInstance;
-  });
 
   afterEach(() => {
     fixture.destroy();
@@ -38,7 +32,7 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it('initialises with a root page', () => {
+  it('initialises with page one as root page', () => {
     expect(app['rootPage']).toEqual(Page1Component);
   });
 
@@ -46,7 +40,7 @@ describe('AppComponent', () => {
     expect(app['pages'].length).toEqual(2);
   });
 
-  it('opens a page', () => {
+  it('opens page two', () => {
     spyOn(app['nav'], 'setRoot');
     app.openPage(app['pages'][1]);
     expect(app['nav'].setRoot).toHaveBeenCalledWith(Page2Component);
