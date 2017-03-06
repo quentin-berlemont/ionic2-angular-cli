@@ -14,12 +14,14 @@ describe('Page1Component', () => {
         IonicModule.forRoot(Page1Component)
       ]
     })
-    .compileComponents().then(() => {
-      fixture = TestBed.createComponent(Page1Component);
-      page1 = fixture.debugElement.componentInstance;
-      // fixture.detectChanges();
-    });
+    .compileComponents();
   }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(Page1Component);
+    page1 = fixture.componentInstance;
+    fixture.detectChanges();
+  });
 
   afterEach(() => {
     fixture.destroy();

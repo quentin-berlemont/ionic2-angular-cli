@@ -16,12 +16,14 @@ describe('AppComponent', () => {
           IonicModule.forRoot(AppComponent)
       ]
     })
-    .compileComponents().then(() => {
-      fixture = TestBed.createComponent(AppComponent);
-      app = fixture.debugElement.componentInstance;
-      // fixture.detectChanges();
-    });
+    .compileComponents();
   }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(AppComponent);
+    app = fixture.componentInstance;
+    // fixture.detectChanges();
+  });
 
   afterEach(() => {
     fixture.destroy();
